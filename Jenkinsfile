@@ -12,7 +12,7 @@ pipeline {
         // In case another branch beside master or develop should be deployed, enter it here
         BRANCH_TO_DEPLOY = 'xyz'
         // This version will be used for the image tags if the branch is merged to master
-        BASE_IMAGE_VERSION = '1.3'
+        BASE_IMAGE_VERSION = '1.4'
         DISCORD_WEBHOOK = credentials('991ce248-5da9-4068-9aea-8a6c2c388a19')
     }
     stages {
@@ -38,8 +38,9 @@ pipeline {
                     anyOf { branch 'develop'; branch 'master'; branch "${BRANCH_TO_DEPLOY}" }
                 }
             }
+            //noinspection GroovyAssignabilityCheck
             parallel {
-                stage('Debian') {
+                stage('Debian Stretch') {
                     agent {
                         label "docker"
                     }
@@ -47,8 +48,27 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Debian/Dockerfile ."
-                            docker.build("spectreproject/spectre-base", "--rm .")
+                            sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
+                            docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Debian Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Debian/Dockerfile_Buster Dockerfile"
+                            docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -96,7 +116,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Raspberry Pi') {
+                stage('Raspberry Pi Stretch') {
                     agent {
                         label "docker"
                     }
@@ -104,8 +124,27 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./RaspberryPi/Dockerfile ."
-                            docker.build("spectreproject/spectre-base-raspi", "--rm .")
+                            sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
+                            docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Raspberry Pi Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
+                            docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -140,8 +179,9 @@ pipeline {
             when {
                 anyOf { branch 'develop'; branch "${BRANCH_TO_DEPLOY}" }
             }
+            //noinspection GroovyAssignabilityCheck
             parallel {
-                stage('Debian') {
+                stage('Debian Stretch') {
                     agent {
                         label "docker"
                     }
@@ -149,8 +189,30 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Debian/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base", "--rm .")
+                            sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                                spectre_base_image.push("latest")
+                            }
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Debian Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Debian/Dockerfile_Buster Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
                                 spectre_base_image.push("latest")
                             }
@@ -207,7 +269,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Raspberry Pi') {
+                stage('Raspberry Pi Stretch') {
                     agent {
                         label "docker"
                     }
@@ -215,8 +277,30 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./RaspberryPi/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi", "--rm .")
+                            sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                                spectre_base_image.push("latest")
+                            }
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Raspberry Pi Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
                                 spectre_base_image.push("latest")
                             }
@@ -257,8 +341,9 @@ pipeline {
             when {
                 branch 'master'
             }
+            //noinspection GroovyAssignabilityCheck
             parallel {
-                stage('Debian') {
+                stage('Debian Stretch') {
                     agent {
                         label "docker"
                     }
@@ -266,8 +351,30 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Debian/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base", "--rm .")
+                            sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                                spectre_base_image.push("${BASE_IMAGE_VERSION}")
+                            }
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Debian Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Debian/Dockerfile_Buster Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
@@ -324,7 +431,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Raspberry Pi') {
+                stage('Raspberry Pi Stretch') {
                     agent {
                         label "docker"
                     }
@@ -332,8 +439,30 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./RaspberryPi/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi", "--rm .")
+                            sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                                spectre_base_image.push("${BASE_IMAGE_VERSION}")
+                            }
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Raspberry Pi Buster') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
