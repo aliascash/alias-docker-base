@@ -154,7 +154,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Ubuntu') {
+                stage('Ubuntu 18.04') {
                     agent {
                         label "docker"
                     }
@@ -162,8 +162,27 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/Dockerfile ."
-                            docker.build("spectreproject/spectre-base-ubuntu", "--rm .")
+                            sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
+                            docker.build("spectreproject/spectre-base-ubuntu-18-04", "--rm .")
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Ubuntu 19.04') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
+                            docker.build("spectreproject/spectre-base-ubuntu-19-04", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -313,7 +332,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Ubuntu') {
+                stage('Ubuntu 18.04') {
                     agent {
                         label "docker"
                     }
@@ -321,8 +340,30 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu", "--rm .")
+                            sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-18-04", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                                spectre_base_image.push("latest")
+                            }
+                            sh "rm Dockerfile"
+                        }
+                    }
+                    post {
+                        always {
+                            sh "docker system prune --all --force"
+                        }
+                    }
+                }
+                stage('Ubuntu 19.04') {
+                    agent {
+                        label "docker"
+                    }
+                    steps {
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
+                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-19-04", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
                                 spectre_base_image.push("latest")
                             }
