@@ -1,9 +1,13 @@
 #!/bin/bash
-# ============================================================================
+# ===========================================================================
 #
-# Simple spectrecoin entry script to start spectrecoind on Docker container
+# SPDX-FileCopyrightText: © 2020 Alias Developers
+# SPDX-FileCopyrightText: © 2016 SpectreCoin Developers
+# SPDX-License-Identifier: MIT
 #
 # Creation: 2018-07-29 hlxeasy
+#
+# Simple spectrecoin entry script to start spectrecoind on Docker container
 #
 # ============================================================================
 
