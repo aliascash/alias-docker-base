@@ -55,7 +55,7 @@ RUN yum install -y \
     tor \
     wget
 
-COPY spectrecoind.sh /usr/local/bin/spectrecoind.sh
-RUN chmod +x /usr/local/bin/spectrecoind.sh
+COPY aliaswallet.sh /usr/local/bin/aliaswallet.sh
+RUN chmod +x /usr/local/bin/aliaswallet.sh
 
-ENTRYPOINT ["/usr/local/bin/spectrecoind.sh"]
+ENTRYPOINT ["/usr/local/bin/aliaswallet.sh"]
