@@ -13,7 +13,7 @@ pipeline {
         BRANCH_TO_DEPLOY = 'xyz'
         // This version will be used for the image tags if the branch is merged to master
         BASE_IMAGE_VERSION = '1.6'
-        DISCORD_WEBHOOK = credentials('991ce248-5da9-4068-9aea-8a6c2c388a19')
+        DISCORD_WEBHOOK = credentials('DISCORD_WEBHOOK')
     }
     stages {
         stage('Notification') {
