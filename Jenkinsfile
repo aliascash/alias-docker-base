@@ -53,7 +53,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
-                            docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
+                            docker.build("aliascash/alias-base-debian-stretch", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -72,7 +72,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Buster Dockerfile"
-                            docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
+                            docker.build("aliascash/alias-base-debian-buster", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -91,7 +91,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./CentOS/Dockerfile ."
-                            docker.build("spectreproject/spectre-base-centos", "--rm .")
+                            docker.build("aliascash/alias-base-centos", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -110,7 +110,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Fedora/Dockerfile ."
-                            docker.build("spectreproject/spectre-base-fedora", "--rm .")
+                            docker.build("aliascash/alias-base-fedora", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -129,7 +129,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
-                            docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
+                            docker.build("aliascash/alias-base-raspi-stretch", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -148,7 +148,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
-                            docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
+                            docker.build("aliascash/alias-base-raspi-buster", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -167,7 +167,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
-                            docker.build("spectreproject/spectre-base-ubuntu-18-04", "--rm .")
+                            docker.build("aliascash/alias-base-ubuntu-18-04", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -186,7 +186,7 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            docker.build("spectreproject/spectre-base-ubuntu-19-04", "--rm .")
+                            docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
                             sh "rm Dockerfile"
                         }
                     }
@@ -213,8 +213,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-debian-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -235,8 +235,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Buster Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-debian-buster", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -257,8 +257,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./CentOS/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-centos", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-centos", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -279,8 +279,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Fedora/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-fedora", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-fedora", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -301,8 +301,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-raspi-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -323,8 +323,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-raspi-buster", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -345,8 +345,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-18-04", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-18-04", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -367,8 +367,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-19-04", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
@@ -397,8 +397,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-stretch", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-debian-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -419,8 +419,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Buster Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-debian-buster", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-debian-buster", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -441,8 +441,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./CentOS/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-centos", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-centos", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -463,8 +463,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Fedora/Dockerfile ."
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-fedora", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-fedora", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -485,8 +485,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-stretch", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-raspi-stretch", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -507,8 +507,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-raspi-buster", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-raspi-buster", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -529,8 +529,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-18-04", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-18-04", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
@@ -551,8 +551,8 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            def spectre_base_image = docker.build("spectreproject/spectre-base-ubuntu-19-04", "--rm .")
-                            docker.withRegistry('https://registry.hub.docker.com', '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
+                            docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
