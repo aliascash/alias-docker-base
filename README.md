@@ -1,10 +1,17 @@
 # spectre-base
-### Base image to install spectrecoind into
+## Base image to install spectrecoind into
 
 This repository contains a Dockerfile to create base image which could be used
-to install [spectrecoind](https://github.com/spectrecoin/spectre) into it. So 
-with each build of spectrecoind it is not necessary to rebuild the required 
+to install [spectrecoind](https://github.com/spectrecoin/spectre) into it. So
+with each build of spectrecoind it is not necessary to rebuild the required
 environment again and again.
+
+## Licensing
+
+- SPDX-FileCopyrightText: © 2020 Alias Developers
+- SPDX-FileCopyrightText: © 2016 SpectreCoin Developers
+
+SPDX-License-Identifier: MIT
 
 ## Facts
 * Image is based on Debian Stretch
@@ -15,7 +22,7 @@ environment again and again.
   * libqt5webchannel5
   * libtool
   * wget
-    
+
 ## How it is build
 ```
 docker build -t spectreproject/spectre-base:latest .
