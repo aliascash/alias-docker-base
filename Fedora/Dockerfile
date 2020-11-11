@@ -13,7 +13,7 @@ ARG PASSWORD="staker123"
 ARG UID="1000"
 ARG GID="1000"
 
-# Setup spectre account
+# Setup staker account
 # Create working directory
 # Change user UID and GID
 RUN groupadd --gid ${GID} $GROUPNAME \
@@ -43,8 +43,3 @@ RUN yum install -y \
     qt5-qtwebengine \
     tor \
     wget
-
-COPY aliaswallet.sh /usr/local/bin/aliaswallet.sh
-RUN chmod +x /usr/local/bin/aliaswallet.sh
-
-ENTRYPOINT ["/usr/local/bin/aliaswallet.sh"]

@@ -1,9 +1,9 @@
 # spectre-base
-## Base image to install spectrecoind into
+## Base image to install Alias wallet into
 
 This repository contains a Dockerfile to create base image which could be used
-to install [spectrecoind](https://github.com/spectrecoin/spectre) into it. So
-with each build of spectrecoind it is not necessary to rebuild the required
+to install [aliaswalletd](https://github.com/aliascash/alias-wallet) into it. So
+with each build of aliaswalletd it is not necessary to rebuild the required
 environment again and again.
 
 ## Licensing
