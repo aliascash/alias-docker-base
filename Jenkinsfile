@@ -53,13 +53,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Stretch Dockerfile"
-                            docker.build("aliascash/alias-base-debian-stretch", "--rm .")
+                            docker.build("aliascash/alias-base-debian-stretch", "--rm -t alias-base-debian-stretch:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-debian-stretch:test"
                         }
                     }
                 }
@@ -72,13 +68,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Debian/Dockerfile_Buster Dockerfile"
-                            docker.build("aliascash/alias-base-debian-buster", "--rm .")
+                            docker.build("aliascash/alias-base-debian-buster", "--rm -t alias-base-debian-buster:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-debian-buster:test"
                         }
                     }
                 }
@@ -91,13 +83,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./CentOS/Dockerfile ."
-                            docker.build("aliascash/alias-base-centos", "--rm .")
+                            docker.build("aliascash/alias-base-centos", "--rm -t alias-base-centos:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-centos:test"
                         }
                     }
                 }
@@ -110,13 +98,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Fedora/Dockerfile ."
-                            docker.build("aliascash/alias-base-fedora", "--rm .")
+                            docker.build("aliascash/alias-base-fedora", "--rm -t alias-base-fedora:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-fedora:test"
                         }
                     }
                 }
@@ -129,13 +113,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Stretch Dockerfile"
-                            docker.build("aliascash/alias-base-raspi-stretch", "--rm .")
+                            docker.build("aliascash/alias-base-raspi-stretch", "--rm -t alias-base-raspi-stretch:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-raspi-stretch:test"
                         }
                     }
                 }
@@ -148,13 +128,9 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./RaspberryPi/Dockerfile_Buster Dockerfile"
-                            docker.build("aliascash/alias-base-raspi-buster", "--rm .")
+                            docker.build("aliascash/alias-base-raspi-buster", "--rm -t alias-base-raspi-buster:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-raspi-buster:test"
                         }
                     }
                 }
@@ -167,17 +143,13 @@ pipeline {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
                             sh "cp ./Ubuntu/Dockerfile_18_04 Dockerfile"
-                            docker.build("aliascash/alias-base-ubuntu-18-04", "--rm .")
+                            docker.build("aliascash/alias-base-ubuntu-18-04", "--rm -t alias-base-ubuntu-18-04:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-ubuntu-18-04:test"
                         }
                     }
                 }
-                stage('Ubuntu 19.04') {
+                stage('Ubuntu 20.04') {
                     agent {
                         label "docker"
                     }
@@ -185,14 +157,10 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
+                            sh "cp ./Ubuntu/Dockerfile_20_04 Dockerfile"
+                            docker.build("aliascash/alias-base-ubuntu-20-04", "--rm -t alias-base-ubuntu-20-04:test .")
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi alias-base-ubuntu-20-04:test"
                         }
                     }
                 }
@@ -218,11 +186,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-debian-stretch:latest"
                         }
                     }
                 }
@@ -240,11 +204,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-debian-buster:latest"
                         }
                     }
                 }
@@ -262,11 +222,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-centos:latest"
                         }
                     }
                 }
@@ -284,11 +240,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-fedora:latest"
                         }
                     }
                 }
@@ -306,11 +258,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-raspi-stretch:latest"
                         }
                     }
                 }
@@ -328,11 +276,7 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-raspi-buster:latest"
                         }
                     }
                 }
@@ -350,15 +294,11 @@ pipeline {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-ubuntu-18-04:latest"
                         }
                     }
                 }
-                stage('Ubuntu 19.04') {
+                stage('Ubuntu 20.04') {
                     agent {
                         label "docker"
                     }
@@ -366,17 +306,13 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
+                            sh "cp ./Ubuntu/Dockerfile_20_04 Dockerfile"
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-20-04", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("latest")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-ubuntu-20-04:latest"
                         }
                     }
                 }
@@ -402,11 +338,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-debian-stretch:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -424,11 +356,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-debian-buster:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -446,11 +374,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-centos:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -468,11 +392,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-fedora:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -490,11 +410,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-raspi-stretch:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -512,11 +428,7 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-raspi-buster:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
@@ -534,15 +446,11 @@ pipeline {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-ubuntu-18-04:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
-                stage('Ubuntu 19.04') {
+                stage('Ubuntu 20.04') {
                     agent {
                         label "docker"
                     }
@@ -550,17 +458,13 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/Dockerfile_19_04 Dockerfile"
-                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-19-04", "--rm .")
+                            sh "cp ./Ubuntu/Dockerfile_20_04 Dockerfile"
+                            def spectre_base_image = docker.build("aliascash/alias-base-ubuntu-20-04", "--rm .")
                             docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Login') {
                                 spectre_base_image.push("${BASE_IMAGE_VERSION}")
                             }
                             sh "rm Dockerfile"
-                        }
-                    }
-                    post {
-                        always {
-                            sh "docker system prune --all --force"
+                            sh "docker rmi aliascash/alias-base-ubuntu-20-04:${BASE_IMAGE_VERSION}"
                         }
                     }
                 }
