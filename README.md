@@ -14,8 +14,7 @@ environment again and again.
 SPDX-License-Identifier: MIT
 
 ## Facts
-* Image is based on Debian Stretch
-* Dedicated user _spectre_ with UID 1000 and GID 1000
+* Dedicated user _staker_ with UID 1000 and GID 1000
 * Installed packages:
   * ca-certificates
   * mc
@@ -25,7 +24,7 @@ SPDX-License-Identifier: MIT
 
 ## How it is build
 ```
-docker build -t spectreproject/spectre-base:latest .
+docker build -t aliascash/alias-base:latest .
 ```
 
 ### Using more than one core
@@ -33,7 +32,7 @@ If multiple cores available for build, you can pass the amount of cores
 to use to the build command:
 
 ```
-docker build -t spectreproject/spectre-base:latest --build-arg BUILD_THREADS=12 .
+docker build -t aliascash/alias-base:latest --build-arg BUILD_THREADS=12 .
 ```
 
 Default value is BUILD_THREADS=6
